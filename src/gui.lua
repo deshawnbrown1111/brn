@@ -88,6 +88,11 @@ themeSelector.TextSize = 12
 themeSelector.ZIndex = 10
 Instance.new("UICorner", themeSelector).CornerRadius = UDim.new(0, 6)
 
+-- Forward declarations for theme-dependent instances
+local prefixLabel
+local input
+local auto
+
 -- Theme colors
 local themes = {
     Dark = {
@@ -117,10 +122,16 @@ local function applyTheme(themeName)
         ColorSequenceKeypoint.new(0, theme.bg1),
         ColorSequenceKeypoint.new(1, theme.bg2)
     })
-    input.TextColor3 = theme.text
-    input.PlaceholderColor3 = theme.placeholder
-    prefixLabel.TextColor3 = theme.prefix
-    auto.TextColor3 = theme.auto
+    if input then
+        input.TextColor3 = theme.text
+        input.PlaceholderColor3 = theme.placeholder
+    end
+    if prefixLabel then
+        prefixLabel.TextColor3 = theme.prefix
+    end
+    if auto then
+        auto.TextColor3 = theme.auto
+    end
 end
 
 themeSelector.MouseButton1Click:Connect(function()
@@ -130,7 +141,7 @@ themeSelector.MouseButton1Click:Connect(function()
 end)
 
 -- Prefix label with better styling
-local prefixLabel = Instance.new("TextLabel", bar)
+prefixLabel = Instance.new("TextLabel", bar)
 prefixLabel.Size = UDim2.new(0, 60, 1, 0)
 prefixLabel.Position = UDim2.new(0, 20, 0, 0)
 prefixLabel.BackgroundTransparency = 1
@@ -141,7 +152,7 @@ prefixLabel.TextSize = 28
 prefixLabel.TextStrokeTransparency = 0.7
 prefixLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 
-local input = Instance.new("TextBox", bar)
+input = Instance.new("TextBox", bar)
 input.Size = UDim2.new(1, -100, 1, -16)
 input.Position = UDim2.new(0, 88, 0, 8)
 input.BackgroundTransparency = 1
@@ -156,7 +167,7 @@ input.TextStrokeTransparency = 0.8
 input.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 
 -- AUTOCOMPLETE
-local auto = Instance.new("TextLabel")
+auto = Instance.new("TextLabel")
 auto.Parent = bar
 auto.BackgroundTransparency = 1
 auto.Position = UDim2.new(0, 88, 1, -2)
@@ -447,6 +458,9 @@ end)
 
 -- CLEAR TEXT AFTER EXECUTE
 input.FocusLost:Connect(function(enter)
+    if dragging then
+        return
+    end
     if enter and input.Text ~= "" then
         if execute(input.Text) then
             input.Text = ""
