@@ -16,9 +16,9 @@ _G.AltConfig = Config
 local IS_ALT = LocalPlayer.Name ~= Config.MAIN_ACCOUNT
 
 -- Load modules
-loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/lua/drilly/attachment.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/lua/drilly/fling.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/lua/drilly/commands.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/attachment.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/fling.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/commands.lua"))()
 
 -- Alt: Poll server for commands
 if IS_ALT then
@@ -41,4 +41,4 @@ end
 
 -- Main account: Load GUI
 print("[MAIN] Alt Control Loaded → Press K to command")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/lua/drilly/gui.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/deshawnbrown1111/brn/refs/heads/main/src/gui.lua"))()
